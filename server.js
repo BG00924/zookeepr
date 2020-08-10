@@ -1,4 +1,6 @@
 const express = require('express');
+// allows the app to use to vary ports
+const PORT = process.env.PORT || 3001
 // instantiates the server
 const app = express()
 // requires the animal data
@@ -50,8 +52,8 @@ app.get('/api/animals', (req, res) => {
     res.json(results)
 })
 // makes the server listen
-app.listen(3001, () => {
-    console.log(`API server now on port 3001`)
+app.listen(PORT, () => {
+    console.log(`API server now on port ${PORT}`)
 })
 
 

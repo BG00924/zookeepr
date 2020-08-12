@@ -10,6 +10,8 @@ const app = express()
 app.use(express.urlencoded({ extended: true}))
 // parse incoming json data
 app.use(express.json())
+// allows for static pages (css, js, etc on the main html)
+app.use(express.static('public'))
 // requires the animal data
 const { animals } = require('./data/animals')
 // filter code
@@ -118,6 +120,17 @@ app.post('/api/animals', (req, res) => {
         const animal = createNewAnimal(req.body, animals)
         res.json(animal)
     }
+})
+
+// gets index, animals, and zookeepers to be served from our express.js server
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'))
+})
+app.get('/animals', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/animals.html'))
+})
+app.get('/zookeepers', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/zookeepers.html'))
 })
 // makes the server listen
 app.listen(PORT, () => {
